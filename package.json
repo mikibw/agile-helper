@@ -1,0 +1,35 @@
+{
+  "name": "agile-helper",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "mongo": "mongod --config /usr/local/etc/mongod.conf --fork",
+    "dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www",
+    "prd": "cross-env NODE_ENV=production pm2-runtime bin/www",
+    "test": "mocha test/*.test.js"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "debug": "^4.1.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-body": "^4.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-jwt": "^4.0.0",
+    "koa-logger": "^3.2.0",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "moment": "^2.29.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.12.5"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "mocha": "^8.3.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^6.1.3"
+  }
+}

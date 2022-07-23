@@ -1,0 +1,39 @@
+version: '3.5'
+x-networks: &networks
+  - &overlay uma-overlay
+x-deploy: &deploy
+  mode: replicated
+  replicas: 1
+  update_config:
+    parallelism: 1
+    delay: 10s
+    order: start-first
+  restart_policy:
+    condition: on-failure
+services:
+  mongo:
+    image: mongo:latest
+    ports: 
+      - 27017:27017
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=agile-helper-root-username
+      - MONGO_INITDB_ROOT_PASSWORD=agile-helper-root-qazxcvbnmko
+    volumes: 
+      - /home/volumes/mongo/db:/data/db
+      - /home/volumes/mongo/configdb:/data/configdb
+      # - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    deploy: *deploy
+    networks: *networks
+  agile-helper:
+    image: ${AGILE_HELPER_IMAGE}
+    ports: 
+      - 3000:3000
+    volumes:
+      - /home/volumes/agile-helper/upload:/usr/local/agile-helper/resources/upload
+    deploy: *deploy
+    networks: *networks
+    depends_on: 
+      - mongo
+networks:
+  *overlay:
+  
